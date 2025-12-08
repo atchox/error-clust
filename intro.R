@@ -56,23 +56,25 @@ ttplot_helper <- function(t_df, p) {
   ggplot() +
     geom_density(
       data = t_df,
-      aes(x = tstat),
-      color = "steelblue",
-      fill = "steelblue",
-      alpha = 0.3
+      aes(x = tstat, fill = "Empirical"),
+      alpha = 0.3,
+      color = "steelblue"
     ) +
     geom_line(
       data = theory_df,
-      aes(x = x, y = density),
-      linetype = "dashed",
-      color = "black",
-      linewidth = 0.7
+      aes(x = x, y = density, color = "Theoretical"),
+      linewidth = 0.7,
+      linetype = "dashed"
+    ) +
+    scale_fill_manual(values = "steelblue") +
+    scale_color_manual(values = "black") +
+    guides(
+      fill = guide_legend(title = NULL),
+      color = guide_legend(title = NULL)
     ) +
     facet_wrap(~n, ncol = 2) +
-    labs(
-      x = "t-statistic",
-      y = "density"
-    )
+    labs(x = "t-statistic", y = "density") +
+    theme(legend.position = "top")
 }
 
 qqplot_helper <- function(t_df, p) {
